@@ -33,6 +33,10 @@ func (BcryptPasswordHasher) Hash(password string) (string, error) {
 	return string(hash), nil
 }
 
+func (BcryptPasswordHasher) Verify(password string, passwordHash string) error {
+	return bcrypt.CompareHashAndPassword([]byte(passwordHash), []byte(password))
+}
+
 type RegisterUserService struct {
 	users     outport.UserRepository
 	passwords PasswordHasher

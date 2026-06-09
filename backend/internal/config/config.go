@@ -26,7 +26,7 @@ func Load() Config {
 		DatabaseURL:      env("DATABASE_URL", "postgres://adotapet:adotapet@localhost:5432/adotapet?sslmode=disable"),
 		RedisURL:         env("REDIS_URL", "redis://localhost:6379/0"),
 		JWTIssuer:        env("JWT_ISSUER", "adotapet"),
-		JWTAccessSecret:  env("JWT_ACCESS_SECRET", ""),
+		JWTAccessSecret:  env("JWT_ACCESS_SECRET", "change-me-access"),
 		JWTRefreshSecret: env("JWT_REFRESH_SECRET", ""),
 		S3Endpoint:       env("S3_ENDPOINT", ""),
 		S3Bucket:         env("S3_BUCKET", ""),

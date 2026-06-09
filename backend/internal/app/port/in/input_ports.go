@@ -24,6 +24,20 @@ type RegisterUserInputPort interface {
 	Register(ctx context.Context, cmd RegisterUserCommand) (RegisteredUser, error)
 }
 
+type LoginCommand struct {
+	Email    string
+	Password string
+}
+
+type AuthTokens struct {
+	AccessToken string
+	ExpiresIn   int
+}
+
+type LoginInputPort interface {
+	Login(ctx context.Context, cmd LoginCommand) (AuthTokens, error)
+}
+
 type PuppySearchQuery struct {
 	Latitude     float64
 	Longitude    float64

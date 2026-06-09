@@ -30,11 +30,17 @@ func main() {
 	defer db.Close()
 
 	userRepository := postgresrepo.NewUserRepository(db)
-	registerUsers := authapp.NewRegisterUserService(userRepository, authapp.BcryptPasswordHasher{})
+	passwords := authapp.BcryptPasswordHasher{}
+	registerUsers := authapp.NewRegisterUserService(userRepository, passwords)
+	loginUsers := authapp.NewLoginService(
+		userRepository,
+		passwords,
+		authapp.NewHMACJWTIssuer(cfg.JWTIssuer, cfg.JWTAccessSecret),
+	)
 
 	server := &http.Server{
 		Addr:              cfg.HTTPAddr,
-		Handler:           httpadapter.NewRouter(cfg, log, registerUsers),
+		Handler:           httpadapter.NewRouter(cfg, log, registerUsers, loginUsers),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

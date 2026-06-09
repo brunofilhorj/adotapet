@@ -18,7 +18,12 @@ import (
 	"adotapet/internal/config"
 )
 
-func NewRouter(cfg config.Config, log *slog.Logger, registerUsers inport.RegisterUserInputPort) http.Handler {
+func NewRouter(
+	cfg config.Config,
+	log *slog.Logger,
+	registerUsers inport.RegisterUserInputPort,
+	loginUsers inport.LoginInputPort,
+) http.Handler {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /health/live", func(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +33,7 @@ func NewRouter(cfg config.Config, log *slog.Logger, registerUsers inport.Registe
 		httperrors.WriteJSON(w, http.StatusOK, map[string]string{"status": "ready"})
 	})
 
-	auth.RegisterRoutes(mux, registerUsers)
+	auth.RegisterRoutes(mux, registerUsers, loginUsers)
 	users.RegisterRoutes(mux)
 	media.RegisterRoutes(mux)
 	puppies.RegisterRoutes(mux)
