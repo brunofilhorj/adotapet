@@ -1,6 +1,7 @@
 services:
   postgres:
-    image: postgis/postgis:16-3.4
+    image: postgis/postgis:18-3.6
+    platform: linux/amd64
     container_name: adotapet-postgres
     environment:
       POSTGRES_DB: adotapet
@@ -9,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U adotapet -d adotapet"]
       interval: 5s
@@ -17,7 +18,7 @@ services:
       retries: 10
 
   redis:
-    image: redis:7-alpine
+    image: redis:8.8.0
     container_name: adotapet-redis
     ports:
       - "6379:6379"
@@ -28,7 +29,7 @@ services:
       retries: 10
 
   flyway:
-    image: flyway/flyway:10
+    image: flyway/flyway:12.8.1
     profiles: ["tools"]
     command: -connectRetries=20 migrate
     environment:
