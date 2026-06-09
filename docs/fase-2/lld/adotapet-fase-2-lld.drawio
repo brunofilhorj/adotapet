@@ -1,0 +1,36 @@
+<mxfile host="app.diagrams.net" agent="Codex" pages="1">
+  <diagram id="fase-2-lld-page-1" name="1. Avaliacoes e Reputacao">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="AdotaPet - Fase 2 LLD: Avaliacoes e Reputacao" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="780" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="HTTP Handlers&#xa;&#xa;POST /tutor-reviews&#xa;GET /users/{id}/reputation&#xa;GET /users/{id}/reviews&#xa;POST /tutor-reviews/{id}/report&#xa;PATCH /admin/tutor-reviews/{id}/status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="70" y="120" width="330" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="usecases" value="Use Cases&#xa;&#xa;CreateTutorReviewUseCase&#xa;ListTutorReviewsUseCase&#xa;GetTutorReputationUseCase&#xa;ReportTutorReviewUseCase&#xa;HideTutorReviewUseCase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="480" y="120" width="330" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="domain" value="Domain&#xa;&#xa;TutorReview&#xa;- reviewerId&#xa;- reviewedUserId&#xa;- puppyId?&#xa;- conversationId?&#xa;- rating 1..5&#xa;- tags[]&#xa;- status&#xa;&#xa;TutorReputationSummary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="890" y="120" width="330" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ports" value="Output Ports&#xa;&#xa;TutorReviewRepository&#xa;ReputationSummaryRepository&#xa;ConversationRepository&#xa;PuppyRepository&#xa;NotificationPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="480" y="460" width="330" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="db" value="PostgreSQL&#xa;&#xa;tutor_reviews&#xa;- reviewer_id FK users&#xa;- reviewed_user_id FK users&#xa;- puppy_id FK puppies?&#xa;- conversation_id FK conversations?&#xa;- rating CHECK 1..5&#xa;- tags JSONB&#xa;- status&#xa;&#xa;tutor_reputation_summaries&#xa;- aggregate por user_id" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="890" y="450" width="360" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="rules" value="Validacoes&#xa;&#xa;- reviewer != reviewedUser&#xa;- existe vinculo qualificado&#xa;- nao duplicar contexto&#xa;- comentario max 1000 chars&#xa;- REPORTED nao entra no sumario publico&#xa;- media publica somente com 3+ avaliacoes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="70" y="450" width="330" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="commands / queries" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="api" target="usecases"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" value="regras" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="usecases" target="domain"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="ports" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="usecases" target="ports"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="repositories" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="ports" target="db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" value="valida" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="rules" target="usecases"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,476 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0" pages="6">
+  <diagram id="page-1" name="1. Contexto do Sistema">
+    <mxGraphModel dx="1533" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" value="AdotaPet - Diagrama de Contexto (C4 Nivel 1)" vertex="1">
+          <mxGeometry height="40" width="600" x="380" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" value="Adotante" vertex="1">
+          <mxGeometry height="80" width="80" x="70" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" value="Doador / Criador / Abrigo" vertex="1">
+          <mxGeometry height="80" width="80" x="70" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontStyle=1;fontSize=13" value="AdotaPet" vertex="1">
+          <mxGeometry height="500" width="660" x="360" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" value="Plataforma AdotaPet&#xa;&#xa;Conecta adotantes a doadores, abrigos e criadores.&#xa;Permite busca geolocalizada, perfis de filhotes,&#xa;comunicacao in-app e gestao de cadastros." vertex="1">
+          <mxGeometry height="140" width="500" x="440" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" value="Servico de Mapas&#xa;(Google Maps / Apple Maps)" vertex="1">
+          <mxGeometry height="70" width="200" x="1260" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" value="Push Notifications&#xa;(FCM / APNs)" vertex="1">
+          <mxGeometry height="70" width="200" x="1260" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" value="Object Storage&#xa;(S3 / GCS - fotos)" vertex="1">
+          <mxGeometry height="70" width="200" x="1260" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" value="E-mail / SMS&#xa;(verificacao, alertas)" vertex="1">
+          <mxGeometry height="70" width="200" x="1260" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="6" value="Busca e adota filhotes">
+          <mxGeometry relative="1" x="-0.3103" y="20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="12" edge="1" parent="1" source="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="6" value="Cadastra filhotes e responde contatos">
+          <mxGeometry relative="1" x="-0.6775" y="20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="13" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="7" value="Geocoding / mapas">
+          <mxGeometry relative="1" x="0.68" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1080" y="390" />
+              <mxPoint x="1080" y="245" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="14" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="8" value="Notificacoes">
+          <mxGeometry relative="1" x="0.6364" y="10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="9" value="Upload de fotos">
+          <mxGeometry relative="1" x="0.6989" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1080" y="390" />
+              <mxPoint x="1080" y="535" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" target="10" value="Verificacao de conta">
+          <mxGeometry relative="1" x="0.7265" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1080" y="390" />
+              <mxPoint x="1080" y="655" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-2" name="2. Conteineres">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="AdotaPet - Diagrama de Conteineres (C4 Nivel 2)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="10" width="700" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Clientes Moveis (iOS + Android)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="400" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="App Mobile [Flutter]&#xa;&#xa;- UI/UX intuitiva&#xa;- Busca e filtros&#xa;- Perfis de filhotes&#xa;- Chat in-app&#xa;- GPS do dispositivo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="90" y="120" width="340" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Backend Go (Hexagonal)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;fontStyle=1;fontSize=13" vertex="1" parent="1">
+          <mxGeometry x="520" y="70" width="740" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="API Gateway / BFF&#xa;[Go HTTP Router + Middleware]&#xa;&#xa;REST + WebSocket&#xa;JWT, CORS, rate limiting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="560" y="120" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Modulo Usuarios&#xa;&#xa;Cadastro, perfis, roles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="560" y="260" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Modulo Anuncios&#xa;&#xa;CRUD filhotes, fotos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="780" y="260" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Modulo Busca&#xa;&#xa;Filtros + PostGIS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="560" y="380" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Modulo Mensagens&#xa;&#xa;Chat 1:1, WebSocket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="780" y="380" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="Modulo Notificacoes&#xa;&#xa;Push, e-mail, alertas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="670" y="500" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="Dados e Infraestrutura" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;fontStyle=1;fontSize=13" vertex="1" parent="1">
+          <mxGeometry x="520" y="700" width="740" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="PostgreSQL + PostGIS&#xa;&#xa;users, profiles&#xa;puppies, photos&#xa;conversations, messages" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="560" y="750" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Redis&#xa;&#xa;Cache de buscas&#xa;Sessoes WebSocket" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="780" y="750" width="170" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="Object Storage (S3)&#xa;&#xa;Fotos + CDN" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="980" y="750" width="170" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="FCM / APNs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1040" y="500" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="HTTPS / WSS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="6" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="6" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="6" target="10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="7" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="8" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="9" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="10" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="9" target="14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="8" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="11" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-3" name="3. Arquitetura Hexagonal">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="AdotaPet - Arquitetura Hexagonal (Backend Go)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="350" y="10" width="800" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Driving Adapters (Entrada)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=left;spacingLeft=8verticalAlign=top;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="260" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="REST Controllers&#xa;&#xa;UserController&#xa;PuppyController&#xa;SearchController&#xa;ConversationController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="90" y="130" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="WebSocket Handler&#xa;&#xa;ChatWebSocketHandler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="90" y="270" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Event Consumers&#xa;&#xa;NotificationEventListener" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="90" y="370" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Scheduled Jobs&#xa;&#xa;ExpireListingsJob" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="90" y="470" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Application Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=left;spacingLeft=8verticalAlign=top;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="80" width="340" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Use Cases (Ports de Entrada)&#xa;&#xa;RegisterUserUseCase&#xa;CreatePuppyListingUseCase&#xa;SearchPuppiesNearbyUseCase&#xa;StartConversationUseCase&#xa;SendMessageUseCase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="410" y="130" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Domain Layer (nucleo)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8verticalAlign=top;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="410" y="310" width="280" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="Entities e Value Objects&#xa;&#xa;User, Profile, Puppy, Photo&#xa;Conversation, Message&#xa;Location, Breed, Age" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="430" y="350" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="Domain Services&#xa;PuppySearchPolicy, AdoptionRules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="430" y="470" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Driven Ports (Saida)&#xa;&#xa;UserRepository&#xa;PuppyRepository&#xa;SearchRepository&#xa;MediaStoragePort&#xa;NotificationPort&#xa;GeoLocationPort" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="760" y="130" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Driven Adapters (Saida)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=8verticalAlign=top;fontStyle=1;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="1040" y="80" width="260" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="PostgreSQL Adapters&#xa;PostgresUserRepository&#xa;PostgisSearchRepository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1070" y="130" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="S3 Adapter&#xa;S3MediaStorageAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1070" y="240" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="Push Adapter&#xa;FcmApnsNotificationAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1070" y="320" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="Geo Adapter&#xa;GoogleGeocodingAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1070" y="400" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="Redis Adapter&#xa;RedisCacheAdapter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1070" y="480" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="Pacotes Go:&#xa;cmd/api, internal/adapters, internal/app, internal/domain&#xa;&#xa;Regra: domain NAO depende de HTTP, banco ou storage" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="620" width="700" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="9" target="11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="9" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="13" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="13" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="13" target="17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="13" target="18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-4" name="4. Modelo de Dados">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="AdotaPet - Modelo de Dados (PostgreSQL + PostGIS)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="350" y="10" width="800" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="users&#xa;-----&#xa;id UUID PK&#xa;email UNIQUE&#xa;password_hash&#xa;role: ADOPTER|DONOR|SHELTER&#xa;status, created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="profiles&#xa;-----&#xa;user_id FK&#xa;name, phone&#xa;city, state&#xa;location GEOGRAPHY&#xa;avatar_url, bio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="200" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="puppies&#xa;-----&#xa;owner_id FK&#xa;name, breed, species&#xa;age_months, size, sex&#xa;description&#xa;location GEOGRAPHY&#xa;status: AVAILABLE|ADOPTED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="340" y="80" width="240" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="puppy_photos&#xa;-----&#xa;puppy_id FK&#xa;url, sort_order&#xa;is_primary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="340" y="320" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="favorites&#xa;-----&#xa;user_id + puppy_id PK&#xa;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="640" y="80" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="conversations&#xa;-----&#xa;puppy_id FK&#xa;adopter_id, donor_id&#xa;status, created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="640" y="220" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="messages&#xa;-----&#xa;conversation_id FK&#xa;sender_id FK&#xa;content, sent_at, read_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="640" y="380" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="saved_searches&#xa;-----&#xa;user_id FK&#xa;filters JSONB&#xa;notify_on_match" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="Query PostGIS:&#xa;ST_DWithin(location, point, radius)&#xa;Indice GIST em puppies.location" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;fontSize=11fontFamily=Courier New;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="340" y="480" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="8" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-5" name="5. Fluxos Principais">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="AdotaPet - Fluxos Principais de Negocio" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="10" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Fluxo 1: Busca de filhotes proximos" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="1. App obtem GPS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="2. GET /puppies/search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="3. SearchUseCase + PostGIS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="460" y="100" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="4. Lista paginada" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="700" y="100" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="5. Perfil detalhado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="920" y="100" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="7" target="8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Fluxo 2: Cadastro de filhote (doador)" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="1. Formulario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="2. Upload S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="220" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="3. POST /puppies" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="400" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="4. Geocoding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="580" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="5. Persiste DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="760" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="6. Visivel na busca" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="980" y="230" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="14" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="15" target="16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="16" target="17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="17" target="18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="18" target="19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="Fluxo 3: Chat in-app" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="1. Entrar em contato" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="2. StartConversation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="230" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="3. WebSocket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="420" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="29" value="4. Push ao doador" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="610" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="30" value="5. Historico DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="800" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="31" value="6. Marca ADOPTED" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="990" y="360" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="26" target="27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="27" target="28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="28" target="29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="29" target="30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="36" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="30" target="31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="API REST v1:&#xa;POST /auth/register, /auth/login&#xa;GET /puppies/search, POST /puppies&#xa;GET/POST /conversations&#xa;WS /ws/chat?token=JWT" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=8;fontSize=11fontFamily=Courier New;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="400" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="NFRs:&#xa;- Latencia busca p95 &lt; 500ms&#xa;- JWT + HTTPS + LGPD&#xa;- Observabilidade: logs, metricas&#xa;- Deploy: Docker + RDS + S3 + CDN" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=top;spacingLeft=8;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="500" y="450" width="380" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-6" name="6. Telas Mobile">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="AdotaPet - Mapa de Telas do App Mobile" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="450" y="10" width="600" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Home / Explorar&#xa;&#xa;Busca, filhotes proximos&#xa;Lista + mapa, favoritos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Busca Avancada&#xa;&#xa;Localizacao, raio km&#xa;Raca, idade, porte, sexo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="300" y="90" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Perfil do Filhote&#xa;&#xa;Fotos, descricao&#xa;Mapa, contato, favoritar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Mensagens&#xa;&#xa;Lista de conversas&#xa;Chat em tempo real" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="740" y="90" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Cadastro&#xa;&#xa;Adotante ou Doador&#xa;E-mail, senha, OTP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="80" y="300" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Meus Anuncios (Doador)&#xa;&#xa;Lista, novo anuncio&#xa;Editar, marcar adotado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="300" y="300" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Meu Perfil&#xa;&#xa;Foto, bio, cidade&#xa;Configuracoes, sair" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left;spacingLeft=10;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="520" y="300" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Bottom Nav: Explorar | Busca | Mensagens | Perfil&#xa;(Doadores: aba extra Meus Anuncios)" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=middle;spacingLeft=8;fontSize=11;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="80" y="490" width="700" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="7" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

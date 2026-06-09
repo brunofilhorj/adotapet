@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" agent="Codex" pages="1">
+  <diagram id="fase-2-hld-page-1" name="1. Reputacao de Tutores">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="AdotaPet - Fase 2 HLD: Reputacao e Avaliacoes de Tutores" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="330" y="20" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="adopter" value="Adotante&#xa;&#xa;Avalia apos conversa ou adocao" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="80" y="190" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="owner" value="Tutor / Doador / Abrigo&#xa;&#xa;Recebe reputacao publica" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="80" y="430" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="mobile" value="Mobile Flutter&#xa;&#xa;- Tela de avaliar tutor&#xa;- Card de reputacao no perfil&#xa;- Lista de avaliacoes&#xa;- Denunciar avaliacao" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="330" y="160" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="backend" value="Backend Go&#xa;&#xa;- Review handlers&#xa;- CreateTutorReviewUseCase&#xa;- GetTutorReputationUseCase&#xa;- ReportTutorReviewUseCase&#xa;- Moderation hooks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="690" y="140" width="330" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="db" value="PostgreSQL&#xa;&#xa;tutor_reviews&#xa;tutor_reputation_summaries&#xa;&#xa;Media publica apenas com minimo de 3 avaliacoes publicadas" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="1">
+          <mxGeometry x="1120" y="150" width="280" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="notifications" value="Notificacoes&#xa;&#xa;- nova avaliacao recebida&#xa;- avaliacao reportada&#xa;- status alterado por moderacao" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="690" y="460" width="330" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="rules" value="Regras de Produto&#xa;&#xa;- Avaliacao exige vinculo qualificado&#xa;- Uma avaliacao por contexto&#xa;- Nota 1..5 + tags + comentario opcional&#xa;- Status: PUBLISHED, HIDDEN, REPORTED&#xa;- Avaliacoes reportadas saem do sumario publico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=8;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="330" y="460" width="270" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="avalia / consulta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="adopter" target="mobile"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" value="perfil publico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="owner" target="mobile"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" value="REST /api/v1/tutor-reviews" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="mobile" target="backend"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" value="persiste e agrega" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="backend" target="db"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" value="eventos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="backend" target="notifications"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" value="aplica politicas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" edge="1" parent="1" source="rules" target="backend"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
