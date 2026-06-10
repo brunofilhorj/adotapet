@@ -17,6 +17,7 @@ type Config struct {
 	JWTRefreshSecret string
 	JWTAccessTTL     time.Duration
 	JWTRefreshTTL    time.Duration
+	VerificationTTL  time.Duration
 	S3Endpoint       string
 	S3Bucket         string
 	S3AccessKey      string
@@ -39,6 +40,7 @@ func Load() Config {
 		JWTRefreshSecret: env("JWT_REFRESH_SECRET", ""),
 		JWTAccessTTL:     durationEnv("JWT_ACCESS_TTL", 15*time.Minute),
 		JWTRefreshTTL:    durationEnv("JWT_REFRESH_TTL", 30*24*time.Hour),
+		VerificationTTL:  durationEnv("VERIFICATION_CODE_TTL", 15*time.Minute),
 		S3Endpoint:       env("S3_ENDPOINT", ""),
 		S3Bucket:         env("S3_BUCKET", ""),
 		S3AccessKey:      env("S3_ACCESS_KEY", ""),

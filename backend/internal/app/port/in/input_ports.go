@@ -7,17 +7,21 @@ import (
 )
 
 type RegisterUserCommand struct {
-	Email    string
-	Password string
-	Role     string
-	Name     string
-	City     string
-	State    string
+	Email               string
+	Password            string
+	Role                string
+	Name                string
+	City                string
+	State               string
+	Phone               string
+	VerificationChannel string
 }
 
 type RegisteredUser struct {
-	UserID string
-	Status string
+	UserID              string
+	Status              string
+	VerificationChannel string
+	VerificationTarget  string
 }
 
 type RegisterUserInputPort interface {
@@ -46,6 +50,38 @@ type RefreshTokenCommand struct {
 
 type RefreshTokenInputPort interface {
 	Refresh(ctx context.Context, cmd RefreshTokenCommand) (AuthTokens, error)
+}
+
+type VerifyAccountCommand struct {
+	Email       string
+	Channel     string
+	Destination string
+	Code        string
+}
+
+type VerifiedAccount struct {
+	UserID string
+	Status string
+}
+
+type VerifyAccountInputPort interface {
+	Verify(ctx context.Context, cmd VerifyAccountCommand) (VerifiedAccount, error)
+}
+
+type ResendVerificationCommand struct {
+	Email       string
+	Channel     string
+	Destination string
+}
+
+type ResendVerificationResult struct {
+	UserID  string
+	Channel string
+	Target  string
+}
+
+type ResendVerificationInputPort interface {
+	Resend(ctx context.Context, cmd ResendVerificationCommand) (ResendVerificationResult, error)
 }
 
 type PuppySearchQuery struct {

@@ -24,6 +24,9 @@ func NewRouter(
 	registerUsers inport.RegisterUserInputPort,
 	loginUsers inport.LoginInputPort,
 	refreshTokens inport.RefreshTokenInputPort,
+	verifyAccounts inport.VerifyAccountInputPort,
+	resendVerification inport.ResendVerificationInputPort,
+	accessTokenVerifier middleware.AccessTokenVerifier,
 ) http.Handler {
 	mux := http.NewServeMux()
 
@@ -34,8 +37,8 @@ func NewRouter(
 		httperrors.WriteJSON(w, http.StatusOK, map[string]string{"status": "ready"})
 	})
 
-	auth.RegisterRoutes(mux, registerUsers, loginUsers, refreshTokens)
-	users.RegisterRoutes(mux)
+	auth.RegisterRoutes(mux, registerUsers, loginUsers, refreshTokens, verifyAccounts, resendVerification)
+	users.RegisterRoutes(mux, middleware.Authenticate(accessTokenVerifier))
 	media.RegisterRoutes(mux)
 	puppies.RegisterRoutes(mux)
 	favorites.RegisterRoutes(mux)

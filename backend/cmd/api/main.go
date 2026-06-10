@@ -11,6 +11,7 @@ import (
 	"time"
 
 	httpadapter "adotapet/internal/adapters/inbound/http"
+	notificationadapter "adotapet/internal/adapters/outbound/notification"
 	postgresadapter "adotapet/internal/adapters/outbound/postgres"
 	postgresrepo "adotapet/internal/adapters/outbound/postgres/repository"
 	authapp "adotapet/internal/app/auth"
@@ -31,10 +32,19 @@ func main() {
 
 	userRepository := postgresrepo.NewUserRepository(db)
 	refreshTokenRepository := postgresrepo.NewRefreshTokenRepository(db)
+	verificationCodeRepository := postgresrepo.NewVerificationCodeRepository(db)
+	verificationSender := notificationadapter.NewLogVerificationSender(log)
 	passwords := authapp.BcryptPasswordHasher{}
 	accessTokens := authapp.NewHMACJWTIssuer(cfg.JWTIssuer, cfg.JWTAccessSecret, cfg.JWTAccessTTL)
 	refreshTokens := authapp.NewSecureRefreshTokenIssuer(cfg.JWTRefreshTTL)
-	registerUsers := authapp.NewRegisterUserService(userRepository, passwords)
+	verificationCodes := authapp.NewNumericVerificationCodeIssuer(cfg.VerificationTTL)
+	registerUsers := authapp.NewRegisterUserService(
+		userRepository,
+		verificationCodeRepository,
+		passwords,
+		verificationCodes,
+		verificationSender,
+	)
 	loginUsers := authapp.NewLoginService(
 		userRepository,
 		refreshTokenRepository,
@@ -48,10 +58,21 @@ func main() {
 		accessTokens,
 		refreshTokens,
 	)
+	verifyAccounts := authapp.NewVerifyAccountService(
+		userRepository,
+		verificationCodeRepository,
+		verificationCodes,
+	)
+	resendVerification := authapp.NewResendVerificationService(
+		userRepository,
+		verificationCodeRepository,
+		verificationCodes,
+		verificationSender,
+	)
 
 	server := &http.Server{
 		Addr:              cfg.HTTPAddr,
-		Handler:           httpadapter.NewRouter(cfg, log, registerUsers, loginUsers, refreshUserTokens),
+		Handler:           httpadapter.NewRouter(cfg, log, registerUsers, loginUsers, refreshUserTokens, verifyAccounts, resendVerification, accessTokens),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

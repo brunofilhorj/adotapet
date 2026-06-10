@@ -13,6 +13,11 @@ import (
 
 var ErrTokenSecretMissing = errors.New("jwt access secret is required")
 
+var (
+	ErrAccessTokenInvalid = errors.New("access token invalid")
+	ErrAccessTokenExpired = errors.New("access token expired")
+)
+
 type HMACJWTIssuer struct {
 	issuer string
 	secret string
@@ -70,6 +75,45 @@ func (i HMACJWTIssuer) IssueAccessToken(subject TokenSubject) (IssuedToken, erro
 	return IssuedToken{
 		Value:     unsigned + "." + signature,
 		ExpiresIn: int(i.ttl.Seconds()),
+	}, nil
+}
+
+func (i HMACJWTIssuer) VerifyAccessToken(token string) (AccessTokenClaims, error) {
+	if strings.TrimSpace(i.secret) == "" {
+		return AccessTokenClaims{}, ErrTokenSecretMissing
+	}
+
+	parts := strings.Split(token, ".")
+	if len(parts) != 3 {
+		return AccessTokenClaims{}, ErrAccessTokenInvalid
+	}
+
+	expected := signHS256(parts[0]+"."+parts[1], i.secret)
+	if !hmac.Equal([]byte(expected), []byte(parts[2])) {
+		return AccessTokenClaims{}, ErrAccessTokenInvalid
+	}
+
+	payload, err := base64.RawURLEncoding.DecodeString(parts[1])
+	if err != nil {
+		return AccessTokenClaims{}, ErrAccessTokenInvalid
+	}
+
+	var claims accessTokenPayload
+	if err := json.Unmarshal(payload, &claims); err != nil {
+		return AccessTokenClaims{}, ErrAccessTokenInvalid
+	}
+	if claims.Issuer != i.issuer || claims.UserID == "" || claims.Expiry == 0 {
+		return AccessTokenClaims{}, ErrAccessTokenInvalid
+	}
+	if !i.now().UTC().Before(time.Unix(claims.Expiry, 0)) {
+		return AccessTokenClaims{}, ErrAccessTokenExpired
+	}
+
+	return AccessTokenClaims{
+		UserID: claims.UserID,
+		Email:  claims.Email,
+		Role:   claims.Role,
+		Status: claims.Status,
 	}, nil
 }
 

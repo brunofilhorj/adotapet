@@ -14,6 +14,13 @@ type UserRepository interface {
 	FindByID(ctx context.Context, id string) (*user.User, error)
 	FindByEmail(ctx context.Context, email string) (*user.User, error)
 	ExistsByEmail(ctx context.Context, email string) (bool, error)
+	Activate(ctx context.Context, id string) (user.User, error)
+}
+
+type VerificationCodeRepository interface {
+	Save(ctx context.Context, code user.AccountVerificationCode) (user.AccountVerificationCode, error)
+	FindPending(ctx context.Context, userID string, channel user.VerificationChannel, destination string, codeHash string) (*user.AccountVerificationCode, error)
+	Consume(ctx context.Context, id string) error
 }
 
 type RefreshTokenRepository interface {

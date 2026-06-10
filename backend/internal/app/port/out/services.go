@@ -6,6 +6,7 @@ import (
 
 	inport "adotapet/internal/app/port/in"
 	"adotapet/internal/domain/common"
+	"adotapet/internal/domain/user"
 )
 
 type SearchRepository interface {
@@ -51,6 +52,18 @@ type NotificationPort interface {
 	SendAccountVerification(ctx context.Context, target NotificationTarget, code string) error
 	SendNewMessage(ctx context.Context, target NotificationTarget, message MessageNotification) error
 	SendSavedSearchMatch(ctx context.Context, target NotificationTarget, match SavedSearchMatch) error
+}
+
+type VerificationSender interface {
+	SendVerificationCode(ctx context.Context, message VerificationMessage) error
+}
+
+type VerificationMessage struct {
+	UserID      string
+	Channel     user.VerificationChannel
+	Destination string
+	Code        string
+	ExpiresAt   time.Time
 }
 
 type NotificationTarget struct {

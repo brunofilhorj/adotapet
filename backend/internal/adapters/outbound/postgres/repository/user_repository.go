@@ -63,6 +63,25 @@ func (r UserRepository) ExistsByEmail(ctx context.Context, email string) (bool, 
 	return exists, err
 }
 
+func (r UserRepository) Activate(ctx context.Context, id string) (user.User, error) {
+	var activated user.User
+	err := r.db.QueryRowContext(ctx, `
+		UPDATE users
+		SET status = 'ACTIVE'
+		WHERE id = $1
+		RETURNING id, email, password_hash, role, status, created_at, updated_at
+	`, id).Scan(
+		&activated.ID,
+		&activated.Email,
+		&activated.PasswordHash,
+		&activated.Role,
+		&activated.Status,
+		&activated.CreatedAt,
+		&activated.UpdatedAt,
+	)
+	return activated, err
+}
+
 type queryer interface {
 	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
 }

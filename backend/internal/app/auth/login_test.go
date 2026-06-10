@@ -263,3 +263,7 @@ func (r *loginUserRepository) FindByEmail(ctx context.Context, email string) (*u
 func (r *loginUserRepository) FindByID(ctx context.Context, id string) (*user.User, error) {
 	return r.foundByID, nil
 }
+
+func (r *loginUserRepository) Activate(ctx context.Context, id string) (user.User, error) {
+	return user.User{ID: id, Status: user.StatusActive}, nil
+}

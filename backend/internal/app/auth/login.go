@@ -39,6 +39,23 @@ type IssuedToken struct {
 	ExpiresIn int
 }
 
+type AccessTokenClaims struct {
+	UserID string
+	Email  string
+	Role   string
+	Status string
+}
+
+type accessTokenPayload struct {
+	Issuer string `json:"iss"`
+	UserID string `json:"sub"`
+	Email  string `json:"email"`
+	Role   string `json:"role"`
+	Status string `json:"status"`
+	Issued int64  `json:"iat"`
+	Expiry int64  `json:"exp"`
+}
+
 type LoginService struct {
 	users         outport.UserRepository
 	refreshTokens outport.RefreshTokenRepository

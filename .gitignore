@@ -1,6 +1,58 @@
+# OS/editor noise
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local environment files
 .env
-backend/.env
-bin/
+.env.*
+!.env.example
+!*.env.example
+
+# Logs and runtime temp files
+*.log
 tmp/
+temp/
+
+# Go
+bin/
+*.test
+*.prof
 coverage.out
+coverage/
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+**/android/local.properties
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Pods/
+**/ios/.symlinks/
+**/macos/Flutter/ephemeral/
+
+# JavaScript/web frontends
+node_modules/
+dist/
+.next/
+/out/
+/frontend/**/out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local database/storage artifacts
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.pem
+*.key

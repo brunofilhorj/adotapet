@@ -39,13 +39,25 @@ func (BcryptPasswordHasher) Verify(password string, passwordHash string) error {
 
 type RegisterUserService struct {
 	users     outport.UserRepository
+	codes     outport.VerificationCodeRepository
 	passwords PasswordHasher
+	issuer    VerificationCodeIssuer
+	sender    outport.VerificationSender
 }
 
-func NewRegisterUserService(users outport.UserRepository, passwords PasswordHasher) RegisterUserService {
+func NewRegisterUserService(
+	users outport.UserRepository,
+	codes outport.VerificationCodeRepository,
+	passwords PasswordHasher,
+	issuer VerificationCodeIssuer,
+	sender outport.VerificationSender,
+) RegisterUserService {
 	return RegisterUserService{
 		users:     users,
+		codes:     codes,
 		passwords: passwords,
+		issuer:    issuer,
+		sender:    sender,
 	}
 }
 
@@ -68,6 +80,11 @@ func (s RegisterUserService) Register(ctx context.Context, cmd inport.RegisterUs
 		return inport.RegisteredUser{}, err
 	}
 
+	var phone *string
+	if normalized.Phone != "" {
+		phone = &normalized.Phone
+	}
+
 	created, err := s.users.SaveWithProfile(ctx, user.User{
 		Email:        normalized.Email,
 		PasswordHash: passwordHash,
@@ -75,6 +92,7 @@ func (s RegisterUserService) Register(ctx context.Context, cmd inport.RegisterUs
 		Status:       user.StatusPendingVerification,
 	}, user.Profile{
 		Name:  normalized.Name,
+		Phone: phone,
 		City:  normalized.City,
 		State: normalized.State,
 	})
@@ -85,9 +103,42 @@ func (s RegisterUserService) Register(ctx context.Context, cmd inport.RegisterUs
 		return inport.RegisteredUser{}, err
 	}
 
+	channel, err := normalizeVerificationChannel(normalized.VerificationChannel)
+	if err != nil {
+		return inport.RegisteredUser{}, err
+	}
+	destination, err := verificationDestination(channel, normalized.Email, normalized.Phone)
+	if err != nil {
+		return inport.RegisteredUser{}, err
+	}
+	issued, err := s.issuer.IssueCode(created.ID, channel, destination)
+	if err != nil {
+		return inport.RegisteredUser{}, err
+	}
+	if _, err := s.codes.Save(ctx, user.AccountVerificationCode{
+		UserID:      created.ID,
+		Channel:     channel,
+		Destination: destination,
+		CodeHash:    issued.Hash,
+		ExpiresAt:   issued.ExpiresAt,
+	}); err != nil {
+		return inport.RegisteredUser{}, err
+	}
+	if err := s.sender.SendVerificationCode(ctx, outport.VerificationMessage{
+		UserID:      created.ID,
+		Channel:     channel,
+		Destination: destination,
+		Code:        issued.Value,
+		ExpiresAt:   issued.ExpiresAt,
+	}); err != nil {
+		return inport.RegisteredUser{}, err
+	}
+
 	return inport.RegisteredUser{
-		UserID: created.ID,
-		Status: string(created.Status),
+		UserID:              created.ID,
+		Status:              string(created.Status),
+		VerificationChannel: string(channel),
+		VerificationTarget:  destination,
 	}, nil
 }
 
@@ -97,6 +148,8 @@ func normalizeRegisterCommand(cmd inport.RegisterUserCommand) (inport.RegisterUs
 	cmd.Name = strings.TrimSpace(cmd.Name)
 	cmd.City = strings.TrimSpace(cmd.City)
 	cmd.State = strings.ToUpper(strings.TrimSpace(cmd.State))
+	cmd.Phone = strings.TrimSpace(cmd.Phone)
+	cmd.VerificationChannel = strings.ToUpper(strings.TrimSpace(cmd.VerificationChannel))
 
 	if _, err := mail.ParseAddress(cmd.Email); err != nil {
 		return cmd, fmt.Errorf("%w: email invalido", ErrInvalidRegisterCommand)
@@ -115,6 +168,11 @@ func normalizeRegisterCommand(cmd inport.RegisterUserCommand) (inport.RegisterUs
 	}
 	if len(cmd.State) != 2 {
 		return cmd, fmt.Errorf("%w: estado deve ter 2 caracteres", ErrInvalidRegisterCommand)
+	}
+	if channel, err := normalizeVerificationChannel(cmd.VerificationChannel); err != nil {
+		return cmd, err
+	} else if _, err := verificationDestination(channel, cmd.Email, cmd.Phone); err != nil {
+		return cmd, err
 	}
 
 	return cmd, nil
