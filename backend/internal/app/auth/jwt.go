@@ -20,11 +20,15 @@ type HMACJWTIssuer struct {
 	now    func() time.Time
 }
 
-func NewHMACJWTIssuer(issuer string, secret string) HMACJWTIssuer {
+func NewHMACJWTIssuer(issuer string, secret string, ttl time.Duration) HMACJWTIssuer {
+	if ttl <= 0 {
+		ttl = defaultAccessTokenTTL()
+	}
+
 	return HMACJWTIssuer{
 		issuer: issuer,
 		secret: secret,
-		ttl:    defaultAccessTokenTTL(),
+		ttl:    ttl,
 		now:    time.Now,
 	}
 }

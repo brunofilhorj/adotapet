@@ -16,6 +16,12 @@ type UserRepository interface {
 	ExistsByEmail(ctx context.Context, email string) (bool, error)
 }
 
+type RefreshTokenRepository interface {
+	Save(ctx context.Context, token user.RefreshToken) (user.RefreshToken, error)
+	FindByHash(ctx context.Context, tokenHash string) (*user.RefreshToken, error)
+	Revoke(ctx context.Context, id string) error
+}
+
 type PuppyRepository interface {
 	Save(ctx context.Context, puppy puppy.Puppy) (puppy.Puppy, error)
 	FindByID(ctx context.Context, id string) (*puppy.Puppy, error)

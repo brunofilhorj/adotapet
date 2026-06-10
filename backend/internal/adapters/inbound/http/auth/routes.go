@@ -24,7 +24,16 @@ type loginRequest struct {
 	Password string `json:"password"`
 }
 
-func RegisterRoutes(mux *http.ServeMux, registerUsers inport.RegisterUserInputPort, loginUsers inport.LoginInputPort) {
+type refreshRequest struct {
+	RefreshToken string `json:"refreshToken"`
+}
+
+func RegisterRoutes(
+	mux *http.ServeMux,
+	registerUsers inport.RegisterUserInputPort,
+	loginUsers inport.LoginInputPort,
+	refreshTokens inport.RefreshTokenInputPort,
+) {
 	mux.HandleFunc("POST /api/v1/auth/register", func(w http.ResponseWriter, r *http.Request) {
 		handleRegister(w, r, registerUsers)
 	})
@@ -35,7 +44,7 @@ func RegisterRoutes(mux *http.ServeMux, registerUsers inport.RegisterUserInputPo
 		httperrors.NotImplemented(w, "Verificacao de conta")
 	})
 	mux.HandleFunc("POST /api/v1/auth/refresh", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Refresh token")
+		handleRefresh(w, r, refreshTokens)
 	})
 }
 
@@ -61,8 +70,38 @@ func handleLogin(w http.ResponseWriter, r *http.Request, loginUsers inport.Login
 	}
 
 	httperrors.WriteJSON(w, http.StatusOK, map[string]any{
-		"accessToken": tokens.AccessToken,
-		"expiresIn":   tokens.ExpiresIn,
+		"accessToken":      tokens.AccessToken,
+		"refreshToken":     tokens.RefreshToken,
+		"expiresIn":        tokens.ExpiresIn,
+		"refreshExpiresIn": tokens.RefreshExpiresIn,
+	})
+}
+
+func handleRefresh(w http.ResponseWriter, r *http.Request, refreshTokens inport.RefreshTokenInputPort) {
+	var request refreshRequest
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&request); err != nil {
+		httperrors.WriteJSON(w, http.StatusBadRequest, httperrors.ErrorResponse{
+			Code:    "VALIDATION_ERROR",
+			Message: "Payload de refresh invalido.",
+		})
+		return
+	}
+
+	tokens, err := refreshTokens.Refresh(r.Context(), inport.RefreshTokenCommand{
+		RefreshToken: request.RefreshToken,
+	})
+	if err != nil {
+		writeRefreshError(w, err)
+		return
+	}
+
+	httperrors.WriteJSON(w, http.StatusOK, map[string]any{
+		"accessToken":      tokens.AccessToken,
+		"refreshToken":     tokens.RefreshToken,
+		"expiresIn":        tokens.ExpiresIn,
+		"refreshExpiresIn": tokens.RefreshExpiresIn,
 	})
 }
 
@@ -113,6 +152,31 @@ func writeRegisterError(w http.ResponseWriter, err error) {
 		httperrors.WriteJSON(w, http.StatusInternalServerError, httperrors.ErrorResponse{
 			Code:    "INTERNAL_ERROR",
 			Message: "Erro interno ao cadastrar usuario.",
+		})
+	}
+}
+
+func writeRefreshError(w http.ResponseWriter, err error) {
+	switch {
+	case errors.Is(err, authapp.ErrInvalidRefreshToken):
+		httperrors.WriteJSON(w, http.StatusUnauthorized, httperrors.ErrorResponse{
+			Code:    "INVALID_REFRESH_TOKEN",
+			Message: "Refresh token invalido.",
+		})
+	case errors.Is(err, authapp.ErrRefreshTokenExpired):
+		httperrors.WriteJSON(w, http.StatusUnauthorized, httperrors.ErrorResponse{
+			Code:    "REFRESH_TOKEN_EXPIRED",
+			Message: "Refresh token expirado ou revogado.",
+		})
+	case errors.Is(err, authapp.ErrAccountNotActive):
+		httperrors.WriteJSON(w, http.StatusForbidden, httperrors.ErrorResponse{
+			Code:    "ACCOUNT_NOT_VERIFIED",
+			Message: "Conta ainda nao verificada.",
+		})
+	default:
+		httperrors.WriteJSON(w, http.StatusInternalServerError, httperrors.ErrorResponse{
+			Code:    "INTERNAL_ERROR",
+			Message: "Erro interno ao renovar token.",
 		})
 	}
 }

@@ -40,16 +40,26 @@ type IssuedToken struct {
 }
 
 type LoginService struct {
-	users     outport.UserRepository
-	passwords PasswordVerifier
-	tokens    AccessTokenIssuer
+	users         outport.UserRepository
+	refreshTokens outport.RefreshTokenRepository
+	passwords     PasswordVerifier
+	accessTokens  AccessTokenIssuer
+	refreshIssuer RefreshTokenIssuer
 }
 
-func NewLoginService(users outport.UserRepository, passwords PasswordVerifier, tokens AccessTokenIssuer) LoginService {
+func NewLoginService(
+	users outport.UserRepository,
+	refreshTokens outport.RefreshTokenRepository,
+	passwords PasswordVerifier,
+	accessTokens AccessTokenIssuer,
+	refreshIssuer RefreshTokenIssuer,
+) LoginService {
 	return LoginService{
-		users:     users,
-		passwords: passwords,
-		tokens:    tokens,
+		users:         users,
+		refreshTokens: refreshTokens,
+		passwords:     passwords,
+		accessTokens:  accessTokens,
+		refreshIssuer: refreshIssuer,
 	}
 }
 
@@ -74,20 +84,7 @@ func (s LoginService) Login(ctx context.Context, cmd inport.LoginCommand) (inpor
 		return inport.AuthTokens{}, ErrAccountNotActive
 	}
 
-	issued, err := s.tokens.IssueAccessToken(TokenSubject{
-		UserID: found.ID,
-		Email:  found.Email,
-		Role:   string(found.Role),
-		Status: string(found.Status),
-	})
-	if err != nil {
-		return inport.AuthTokens{}, err
-	}
-
-	return inport.AuthTokens{
-		AccessToken: issued.Value,
-		ExpiresIn:   issued.ExpiresIn,
-	}, nil
+	return issueTokenPair(ctx, found, s.accessTokens, s.refreshIssuer, s.refreshTokens)
 }
 
 func normalizeLoginCommand(cmd inport.LoginCommand) (inport.LoginCommand, error) {
@@ -105,4 +102,42 @@ func normalizeLoginCommand(cmd inport.LoginCommand) (inport.LoginCommand, error)
 
 func defaultAccessTokenTTL() time.Duration {
 	return 15 * time.Minute
+}
+
+func issueTokenPair(
+	ctx context.Context,
+	found *user.User,
+	accessTokens AccessTokenIssuer,
+	refreshIssuer RefreshTokenIssuer,
+	refreshTokens outport.RefreshTokenRepository,
+) (inport.AuthTokens, error) {
+	issuedAccess, err := accessTokens.IssueAccessToken(TokenSubject{
+		UserID: found.ID,
+		Email:  found.Email,
+		Role:   string(found.Role),
+		Status: string(found.Status),
+	})
+	if err != nil {
+		return inport.AuthTokens{}, err
+	}
+
+	issuedRefresh, err := refreshIssuer.IssueRefreshToken()
+	if err != nil {
+		return inport.AuthTokens{}, err
+	}
+
+	if _, err := refreshTokens.Save(ctx, user.RefreshToken{
+		UserID:    found.ID,
+		TokenHash: issuedRefresh.Hash,
+		ExpiresAt: issuedRefresh.ExpiresAt,
+	}); err != nil {
+		return inport.AuthTokens{}, err
+	}
+
+	return inport.AuthTokens{
+		AccessToken:      issuedAccess.Value,
+		RefreshToken:     issuedRefresh.Value,
+		ExpiresIn:        issuedAccess.ExpiresIn,
+		RefreshExpiresIn: issuedRefresh.ExpiresIn,
+	}, nil
 }

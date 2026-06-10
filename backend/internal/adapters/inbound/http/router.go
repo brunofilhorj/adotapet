@@ -23,6 +23,7 @@ func NewRouter(
 	log *slog.Logger,
 	registerUsers inport.RegisterUserInputPort,
 	loginUsers inport.LoginInputPort,
+	refreshTokens inport.RefreshTokenInputPort,
 ) http.Handler {
 	mux := http.NewServeMux()
 
@@ -33,7 +34,7 @@ func NewRouter(
 		httperrors.WriteJSON(w, http.StatusOK, map[string]string{"status": "ready"})
 	})
 
-	auth.RegisterRoutes(mux, registerUsers, loginUsers)
+	auth.RegisterRoutes(mux, registerUsers, loginUsers, refreshTokens)
 	users.RegisterRoutes(mux)
 	media.RegisterRoutes(mux)
 	puppies.RegisterRoutes(mux)

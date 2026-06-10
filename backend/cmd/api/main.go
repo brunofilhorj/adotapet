@@ -30,17 +30,28 @@ func main() {
 	defer db.Close()
 
 	userRepository := postgresrepo.NewUserRepository(db)
+	refreshTokenRepository := postgresrepo.NewRefreshTokenRepository(db)
 	passwords := authapp.BcryptPasswordHasher{}
+	accessTokens := authapp.NewHMACJWTIssuer(cfg.JWTIssuer, cfg.JWTAccessSecret, cfg.JWTAccessTTL)
+	refreshTokens := authapp.NewSecureRefreshTokenIssuer(cfg.JWTRefreshTTL)
 	registerUsers := authapp.NewRegisterUserService(userRepository, passwords)
 	loginUsers := authapp.NewLoginService(
 		userRepository,
+		refreshTokenRepository,
 		passwords,
-		authapp.NewHMACJWTIssuer(cfg.JWTIssuer, cfg.JWTAccessSecret),
+		accessTokens,
+		refreshTokens,
+	)
+	refreshUserTokens := authapp.NewRefreshTokenService(
+		userRepository,
+		refreshTokenRepository,
+		accessTokens,
+		refreshTokens,
 	)
 
 	server := &http.Server{
 		Addr:              cfg.HTTPAddr,
-		Handler:           httpadapter.NewRouter(cfg, log, registerUsers, loginUsers),
+		Handler:           httpadapter.NewRouter(cfg, log, registerUsers, loginUsers, refreshUserTokens),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

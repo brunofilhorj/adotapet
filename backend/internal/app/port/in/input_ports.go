@@ -30,12 +30,22 @@ type LoginCommand struct {
 }
 
 type AuthTokens struct {
-	AccessToken string
-	ExpiresIn   int
+	AccessToken      string
+	RefreshToken     string
+	ExpiresIn        int
+	RefreshExpiresIn int
 }
 
 type LoginInputPort interface {
 	Login(ctx context.Context, cmd LoginCommand) (AuthTokens, error)
+}
+
+type RefreshTokenCommand struct {
+	RefreshToken string
+}
+
+type RefreshTokenInputPort interface {
+	Refresh(ctx context.Context, cmd RefreshTokenCommand) (AuthTokens, error)
 }
 
 type PuppySearchQuery struct {
