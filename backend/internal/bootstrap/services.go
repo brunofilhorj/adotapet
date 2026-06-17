@@ -13,6 +13,7 @@ import (
 	"adotapet/internal/adapters/inbound/http/webserver"
 	"adotapet/internal/adapters/inbound/ws/chat"
 	postgresrepo "adotapet/internal/adapters/outbound/postgres/repository"
+	puppiesapp "adotapet/internal/app/puppies"
 	usersapp "adotapet/internal/app/users"
 )
 
@@ -26,7 +27,7 @@ func newServices(resources resources, cfg Config, log *slog.Logger) []Service {
 		newAuthService(resources.database, cfg, log, accessTokens),
 		newUsersService(resources.database, accessTokens),
 		newMediaService(accessTokens),
-		newPuppiesService(accessTokens),
+		newPuppiesService(resources.database, accessTokens),
 		newFavoritesService(accessTokens),
 		newConversationsService(accessTokens),
 		newChatService(accessTokens),
@@ -44,8 +45,10 @@ func newMediaService(accessTokens middleware.AccessTokenVerifier) Service {
 	return httpmedia.NewService(accessTokens)
 }
 
-func newPuppiesService(accessTokens middleware.AccessTokenVerifier) Service {
-	return httppuppies.NewService(accessTokens)
+func newPuppiesService(db *sql.DB, accessTokens middleware.AccessTokenVerifier) Service {
+	puppyRepository := postgresrepo.NewPuppyRepository(db)
+	listings := puppiesapp.NewListingService(puppyRepository)
+	return httppuppies.NewService(accessTokens, listings)
 }
 
 func newFavoritesService(accessTokens middleware.AccessTokenVerifier) Service {
