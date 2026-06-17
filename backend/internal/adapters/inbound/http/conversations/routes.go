@@ -4,21 +4,26 @@ import (
 	"net/http"
 
 	httperrors "adotapet/internal/adapters/inbound/http/errors"
+	"adotapet/internal/adapters/inbound/http/middleware"
 	"adotapet/internal/adapters/inbound/http/webserver"
 )
 
-type Service struct{}
-
-func NewService() Service {
-	return Service{}
+type Service struct {
+	authenticate webserver.Middleware
 }
 
-func (Service) Routes() []webserver.Route {
+func NewService(accessTokenVerifier middleware.AccessTokenVerifier) Service {
+	return Service{
+		authenticate: middleware.Authenticate(accessTokenVerifier),
+	}
+}
+
+func (s Service) Routes() []webserver.Route {
 	return []webserver.Route{
-		webserver.HandleFunc("POST /api/v1/conversations", handleCreateConversation),
-		webserver.HandleFunc("GET /api/v1/conversations", handleListConversations),
-		webserver.HandleFunc("GET /api/v1/conversations/{id}/messages", handleListMessages),
-		webserver.HandleFunc("POST /api/v1/conversations/{id}/messages", handleCreateMessage),
+		webserver.HandleFunc("POST /api/v1/conversations", handleCreateConversation, s.authenticate),
+		webserver.HandleFunc("GET /api/v1/conversations", handleListConversations, s.authenticate),
+		webserver.HandleFunc("GET /api/v1/conversations/{id}/messages", handleListMessages, s.authenticate),
+		webserver.HandleFunc("POST /api/v1/conversations/{id}/messages", handleCreateMessage, s.authenticate),
 	}
 }
 

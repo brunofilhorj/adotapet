@@ -25,11 +25,11 @@ func newServices(resources resources, cfg Config, log *slog.Logger) []Service {
 	return []Service{
 		newAuthService(resources.database, cfg, log, accessTokens),
 		newUsersService(resources.database, accessTokens),
-		newMediaService(),
-		newPuppiesService(),
-		newFavoritesService(),
-		newConversationsService(),
-		newChatService(),
+		newMediaService(accessTokens),
+		newPuppiesService(accessTokens),
+		newFavoritesService(accessTokens),
+		newConversationsService(accessTokens),
+		newChatService(accessTokens),
 	}
 }
 
@@ -40,22 +40,22 @@ func newUsersService(db *sql.DB, accessTokens middleware.AccessTokenVerifier) Se
 	return httpusers.NewService(accessTokens, profiles)
 }
 
-func newMediaService() Service {
-	return httpmedia.NewService()
+func newMediaService(accessTokens middleware.AccessTokenVerifier) Service {
+	return httpmedia.NewService(accessTokens)
 }
 
-func newPuppiesService() Service {
-	return httppuppies.NewService()
+func newPuppiesService(accessTokens middleware.AccessTokenVerifier) Service {
+	return httppuppies.NewService(accessTokens)
 }
 
-func newFavoritesService() Service {
-	return httpfavorites.NewService()
+func newFavoritesService(accessTokens middleware.AccessTokenVerifier) Service {
+	return httpfavorites.NewService(accessTokens)
 }
 
-func newConversationsService() Service {
-	return httpconversations.NewService()
+func newConversationsService(accessTokens middleware.AccessTokenVerifier) Service {
+	return httpconversations.NewService(accessTokens)
 }
 
-func newChatService() Service {
-	return chat.NewService()
+func newChatService(accessTokens middleware.AccessTokenVerifier) Service {
+	return chat.NewService(accessTokens)
 }

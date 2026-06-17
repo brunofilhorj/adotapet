@@ -4,18 +4,23 @@ import (
 	"net/http"
 
 	httperrors "adotapet/internal/adapters/inbound/http/errors"
+	"adotapet/internal/adapters/inbound/http/middleware"
 	"adotapet/internal/adapters/inbound/http/webserver"
 )
 
-type Service struct{}
-
-func NewService() Service {
-	return Service{}
+type Service struct {
+	authenticate webserver.Middleware
 }
 
-func (Service) Routes() []webserver.Route {
+func NewService(accessTokenVerifier middleware.AccessTokenVerifier) Service {
+	return Service{
+		authenticate: middleware.Authenticate(accessTokenVerifier),
+	}
+}
+
+func (s Service) Routes() []webserver.Route {
 	return []webserver.Route{
-		webserver.HandleFunc("POST /api/v1/media/upload-url", handleUploadURL),
+		webserver.HandleFunc("POST /api/v1/media/upload-url", handleUploadURL, s.authenticate),
 	}
 }
 
