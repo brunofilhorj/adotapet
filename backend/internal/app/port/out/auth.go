@@ -3,8 +3,6 @@ package out
 import (
 	"context"
 
-	"adotapet/internal/domain/common"
-	"adotapet/internal/domain/puppy"
 	"adotapet/internal/domain/user"
 )
 
@@ -27,10 +25,4 @@ type RefreshTokenRepository interface {
 	Save(ctx context.Context, token user.RefreshToken) (user.RefreshToken, error)
 	FindByHash(ctx context.Context, tokenHash string) (*user.RefreshToken, error)
 	Revoke(ctx context.Context, id string) error
-}
-
-type PuppyRepository interface {
-	Save(ctx context.Context, puppy puppy.Puppy) (puppy.Puppy, error)
-	FindByID(ctx context.Context, id string) (*puppy.Puppy, error)
-	FindByOwnerID(ctx context.Context, ownerID string, page common.PageRequest) (common.Page[puppy.Puppy], error)
 }
