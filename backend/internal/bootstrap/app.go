@@ -28,10 +28,10 @@ func NewApp(ctx context.Context, cfg Config, log *slog.Logger) (*App, error) {
 		return nil, err
 	}
 
-	authServices := newAuthServices(resources.database, cfg, log)
+	services := newServices(resources, cfg, log)
 
 	return &App{
-		server:    newServer(cfg, log, authServices),
+		server:    newServer(cfg, log, services...),
 		resources: resources.all(),
 		log:       log,
 	}, nil

@@ -4,25 +4,46 @@ import (
 	"net/http"
 
 	httperrors "adotapet/internal/adapters/inbound/http/errors"
+	"adotapet/internal/adapters/inbound/http/webserver"
 )
 
-func RegisterRoutes(mux *http.ServeMux) {
-	mux.HandleFunc("POST /api/v1/puppies/{id}/favorite", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Adicionar favorito")
-	})
-	mux.HandleFunc("DELETE /api/v1/puppies/{id}/favorite", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Remover favorito")
-	})
-	mux.HandleFunc("GET /api/v1/me/favorites", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Listagem de favoritos")
-	})
-	mux.HandleFunc("POST /api/v1/me/saved-searches", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Criacao de busca salva")
-	})
-	mux.HandleFunc("GET /api/v1/me/saved-searches", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Listagem de buscas salvas")
-	})
-	mux.HandleFunc("DELETE /api/v1/me/saved-searches/{id}", func(w http.ResponseWriter, r *http.Request) {
-		httperrors.NotImplemented(w, "Remocao de busca salva")
-	})
+type Service struct{}
+
+func NewService() Service {
+	return Service{}
+}
+
+func (Service) Routes() []webserver.Route {
+	return []webserver.Route{
+		webserver.HandleFunc("POST /api/v1/puppies/{id}/favorite", handleAddFavorite),
+		webserver.HandleFunc("DELETE /api/v1/puppies/{id}/favorite", handleRemoveFavorite),
+		webserver.HandleFunc("GET /api/v1/me/favorites", handleListFavorites),
+		webserver.HandleFunc("POST /api/v1/me/saved-searches", handleCreateSavedSearch),
+		webserver.HandleFunc("GET /api/v1/me/saved-searches", handleListSavedSearches),
+		webserver.HandleFunc("DELETE /api/v1/me/saved-searches/{id}", handleDeleteSavedSearch),
+	}
+}
+
+func handleAddFavorite(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Adicionar favorito")
+}
+
+func handleRemoveFavorite(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Remover favorito")
+}
+
+func handleListFavorites(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Listagem de favoritos")
+}
+
+func handleCreateSavedSearch(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Criacao de busca salva")
+}
+
+func handleListSavedSearches(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Listagem de buscas salvas")
+}
+
+func handleDeleteSavedSearch(w http.ResponseWriter, r *http.Request) {
+	httperrors.NotImplemented(w, "Remocao de busca salva")
 }

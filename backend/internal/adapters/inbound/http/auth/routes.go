@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	httperrors "adotapet/internal/adapters/inbound/http/errors"
+	"adotapet/internal/adapters/inbound/http/webserver"
 	authapp "adotapet/internal/app/auth"
 	inport "adotapet/internal/app/port/in"
 )
@@ -43,29 +44,48 @@ type resendVerificationRequest struct {
 	Destination string `json:"destination"`
 }
 
-func RegisterRoutes(
-	mux *http.ServeMux,
+type Service struct {
+	registerUsers      inport.RegisterUserInputPort
+	loginUsers         inport.LoginInputPort
+	refreshTokens      inport.RefreshTokenInputPort
+	verifyAccounts     inport.VerifyAccountInputPort
+	resendVerification inport.ResendVerificationInputPort
+}
+
+func NewService(
 	registerUsers inport.RegisterUserInputPort,
 	loginUsers inport.LoginInputPort,
 	refreshTokens inport.RefreshTokenInputPort,
 	verifyAccounts inport.VerifyAccountInputPort,
 	resendVerification inport.ResendVerificationInputPort,
-) {
-	mux.HandleFunc("POST /api/v1/auth/register", func(w http.ResponseWriter, r *http.Request) {
-		handleRegister(w, r, registerUsers)
-	})
-	mux.HandleFunc("POST /api/v1/auth/login", func(w http.ResponseWriter, r *http.Request) {
-		handleLogin(w, r, loginUsers)
-	})
-	mux.HandleFunc("POST /api/v1/auth/verify", func(w http.ResponseWriter, r *http.Request) {
-		handleVerify(w, r, verifyAccounts)
-	})
-	mux.HandleFunc("POST /api/v1/auth/resend-verification", func(w http.ResponseWriter, r *http.Request) {
-		handleResendVerification(w, r, resendVerification)
-	})
-	mux.HandleFunc("POST /api/v1/auth/refresh", func(w http.ResponseWriter, r *http.Request) {
-		handleRefresh(w, r, refreshTokens)
-	})
+) Service {
+	return Service{
+		registerUsers:      registerUsers,
+		loginUsers:         loginUsers,
+		refreshTokens:      refreshTokens,
+		verifyAccounts:     verifyAccounts,
+		resendVerification: resendVerification,
+	}
+}
+
+func (s Service) Routes() []webserver.Route {
+	return []webserver.Route{
+		webserver.HandleFunc("POST /api/v1/auth/register", func(w http.ResponseWriter, r *http.Request) {
+			handleRegister(w, r, s.registerUsers)
+		}),
+		webserver.HandleFunc("POST /api/v1/auth/login", func(w http.ResponseWriter, r *http.Request) {
+			handleLogin(w, r, s.loginUsers)
+		}),
+		webserver.HandleFunc("POST /api/v1/auth/verify", func(w http.ResponseWriter, r *http.Request) {
+			handleVerify(w, r, s.verifyAccounts)
+		}),
+		webserver.HandleFunc("POST /api/v1/auth/resend-verification", func(w http.ResponseWriter, r *http.Request) {
+			handleResendVerification(w, r, s.resendVerification)
+		}),
+		webserver.HandleFunc("POST /api/v1/auth/refresh", func(w http.ResponseWriter, r *http.Request) {
+			handleRefresh(w, r, s.refreshTokens)
+		}),
+	}
 }
 
 func handleVerify(w http.ResponseWriter, r *http.Request, verifyAccounts inport.VerifyAccountInputPort) {
