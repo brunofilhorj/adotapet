@@ -1,3 +1,5 @@
+COMPOSE := docker compose --env-file .env -f deployments/local/docker-compose.yml
+
 .PHONY: run test db-up db-down migrate
 
 run:
@@ -7,10 +9,10 @@ test:
 	go test ./...
 
 db-up:
-	docker compose -f deployments/local/docker-compose.yml up -d postgres redis
+	$(COMPOSE) up -d postgres redis
 
 db-down:
-	docker compose -f deployments/local/docker-compose.yml down
+	$(COMPOSE) down
 
 migrate:
-	docker compose -f deployments/local/docker-compose.yml run --rm flyway
+	$(COMPOSE) run --rm flyway
